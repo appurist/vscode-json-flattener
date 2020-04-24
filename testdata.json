@@ -1,0 +1,17 @@
+{
+	"name": "test-data",
+	"displayName": "Test Data",
+	"level1a": {
+		"level1a1": "value1a1",
+		"level1a2": {
+			"level1a2a": "value1a2a",
+			"level1a2b": {
+				"level1a2b": "value1a2b"
+			}
+		}
+	},
+	"level1b": [
+		"value1b1", "value1b2"
+	],
+	"level1c": "value1c"
+}
