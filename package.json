@@ -2,7 +2,7 @@
 	"name": "json-flattener",
 	"displayName": "JSON Flattener",
 	"description": "Flattens multi-level JSON to single-level dot notation.",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.44.0"
 	},
