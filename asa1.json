@@ -1,0 +1,56 @@
+{
+  "name": "basic_users",
+  "metadata": {},
+  "transient_metadata": {
+    "enabled": true
+  },
+  "elasticsearch": {
+    "cluster": [],
+    "indices": [{
+      "names": ["cf-events-*", "cf-firehose-*", "cf-metrics-*", "filebeat-*", "metricbeat-*", "metrics-general-*", "pipeline-jobs-*", "service-metrics-*", "filebeat-*,cf-firehose-*"],
+      "privileges": ["read"],
+      "field_security": {
+        "grant": ["*"]
+      },
+      "allow_restricted_indices": false
+    }],
+    "run_as": []
+  },
+  "kibana": [{
+    "base": [],
+    "feature": {
+      "discover": ["all"],
+      "visualize": ["all"],
+      "dashboard": ["all"],
+      "dev_tools": ["read"],
+      "graph": ["all"],
+      "apm": ["all"],
+      "maps": ["all"],
+      "canvas": ["all"],
+      "infrastructure": ["all"],
+      "logs": ["all"],
+      "siem": ["all"],
+      "uptime": ["all"]
+    },
+    "spaces": ["default"]
+  }, {
+    "base": [],
+    "feature": {
+      "discover": ["all"],
+      "visualize": ["all"],
+      "dev_tools": ["read"],
+      "graph": ["all"],
+      "apm": ["all"],
+      "maps": ["all"],
+      "canvas": ["all"],
+      "infrastructure": ["all"],
+      "logs": ["all"],
+      "siem": ["all"],
+      "uptime": ["all"],
+      "dashboard": ["all"]
+    },
+    "spaces": ["beats"]
+  }],
+  "_transform_error": [],
+  "_unrecognized_applications": []
+}
