@@ -37,7 +37,32 @@ function replaceSelection(editor, text) {
 		}
 	});
 }
-////////////////////////////////////////////////////
+
+// Accumulates a deeply-nested object as items into array 'acc', recursively. Lines are later inserted.
+// An array is used to avoid excessive reconcatenation with a bunch of temp objects as one long string.
+function objToFlatArray(obj, acc, prefix) {
+	let prefixDot = prefix ? prefix + '.' : '';
+	for (const k in obj) {	// k is the key of the item in the obj
+		if (obj.hasOwnProperty(k)) {
+			let prefixDotKey = prefixDot + k;
+			let t = typeof obj[k];
+			if (Array.isArray(obj[k])) {
+				for (const a in obj[k]) {
+					if (obj[k].hasOwnProperty(a)) {
+						objToFlatArray(obj[k][a], acc, prefixDotKey);
+					}
+				}
+			}
+			else if (t === 'object') {
+				objToFlatArray(obj[k], acc, prefixDotKey);
+			}
+			else if (t === 'string') {
+				acc.push(`  "${prefixDotKey}": "${obj[k]}"`)
+			}
+		}
+	}
+}
+/**************************************************/
 
 // Command 1: appurist.json-flattener.selection
 function selectionFlatten () {
@@ -47,8 +72,11 @@ function selectionFlatten () {
 	let obj = objectFromSelection(editor);
 	if (!obj) return;	// already reported
 
-	let json2 = JSON.stringify(obj);
-	return replaceSelection(editor, json2);
+	let flatArray = ['{'];
+	objToFlatArray(obj, flatArray, '');
+	flatArray.push('}')
+	let flatObj = flatArray.join('\n')
+	return replaceSelection(editor, flatObj);
 }
 
 // Command 2: appurist.json-flattener.pretty
@@ -104,7 +132,7 @@ function activate(context) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Extension json-flattener: active.');
+	//console.log('Extension json-flattener: active.');
 
 	// These commands have been defined in the package.json file.
 	// Now we provide the implementation of the command with registerCommand().
@@ -136,7 +164,7 @@ exports.activate = activate;
 
 // this method is called when your extension is deactivated
 function deactivate() {
-	console.log('Extension json-flattener: deactivated.');
+	//console.log('Extension json-flattener: deactivated.');
 }
 
 module.exports = {
