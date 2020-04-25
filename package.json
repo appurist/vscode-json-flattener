@@ -1,8 +1,11 @@
 {
 	"name": "json-flattener",
 	"displayName": "JSON Flattener",
-	"description": "Flattens multi-level JSON to single-level dot notation.",
 	"version": "1.0.0",
+	"description": "Flattens multi-level JSON to single-level dot notation.",
+	"publisher": "Appurist",
+	"author": "Paul Whittemore <dev@appurist.com>",
+	"repository" : {"type": "git", "url": "git://github.com/appurist/vscode-json-flattener.git"},
 	"engines": {
 		"vscode": "^1.44.0"
 	},
