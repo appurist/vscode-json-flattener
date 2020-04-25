@@ -38,28 +38,42 @@ function replaceSelection(editor, text) {
 	});
 }
 
+function isEmptyObject(obj) {
+	for (var k in obj) {
+		return false;
+	}
+	return true;
+}
+
 // Accumulates a deeply-nested object as items into array 'acc', recursively. Lines are later inserted.
 // An array is used to avoid excessive reconcatenation with a bunch of temp objects as one long string.
 function objToFlatArray(obj, acc, prefix) {
 	let prefixDot = prefix ? prefix + '.' : '';
-	for (const k in obj) {	// k is the key of the item in the obj
-		if (obj.hasOwnProperty(k)) {
-			let prefixDotKey = prefixDot + k;
-			let t = typeof obj[k];
-			if (Array.isArray(obj[k])) {
-				for (const a in obj[k]) {
-					if (obj[k].hasOwnProperty(a)) {
-						objToFlatArray(obj[k][a], acc, prefixDotKey);
-					}
-				}
-			}
-			else if (t === 'object') {
-				objToFlatArray(obj[k], acc, prefixDotKey);
-			}
-			else if (t === 'string') {
-				acc.push(`  "${prefixDotKey}": "${obj[k]}"`)
+	let t = typeof obj;
+	let isArray = Array.isArray(obj);
+
+	// Special cases first for empty enumerables
+	if (isArray && (obj.length === 0)) {
+		acc.push(`  "${prefix}": []`)
+	}
+	else if (t === 'object' && isEmptyObject(obj)) {
+		acc.push(`  "${prefix}": {}`)
+	}
+	else if ((t === 'object') || isArray) {
+		for (const k in obj) {
+			if (obj.hasOwnProperty(k)) {
+				objToFlatArray(obj[k], acc, `${prefixDot}${k}`);
 			}
 		}
+	}
+	else if (t == 'string') {
+		acc.push(`  "${prefix}": "${obj}"`)
+	}
+	else if (t == 'boolean') {
+		acc.push(`  "${prefix}": ${obj}`)
+	}
+	else {
+		acc.push(`  "${prefix}": ${obj}`)
 	}
 }
 /**************************************************/
@@ -72,11 +86,10 @@ function selectionFlatten () {
 	let obj = objectFromSelection(editor);
 	if (!obj) return;	// already reported
 
-	let flatArray = ['{'];
-	objToFlatArray(obj, flatArray, '');
-	flatArray.push('}')
-	let flatObj = flatArray.join('\n')
-	return replaceSelection(editor, flatObj);
+	let flatArray = [];
+	objToFlatArray(obj, flatArray);
+	let flatJSON = '{\n' + flatArray.join(',\n') + '\n}';
+	return replaceSelection(editor, flatJSON);
 }
 
 // Command 2: appurist.json-flattener.pretty
