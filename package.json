@@ -1,7 +1,7 @@
 {
 	"name": "json-flattener",
 	"displayName": "JSON Flattener",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"icon": "images/logo128.png",
 	"description": "Flattens multi-level JSON to single-level dot notation.",
 	"publisher": "Appurist",
