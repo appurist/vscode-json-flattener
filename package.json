@@ -1,7 +1,8 @@
 {
 	"name": "json-flattener",
 	"displayName": "JSON Flattener",
-	"version": "1.0.0",
+	"version": "1.0.1",
+	"icon": "images/logo128.png",
 	"description": "Flattens multi-level JSON to single-level dot notation.",
 	"publisher": "Appurist",
 	"author": "Paul Whittemore <dev@appurist.com>",
@@ -10,7 +11,7 @@
 		"vscode": "^1.44.0"
 	},
 	"categories": [
-		"Other"
+		"Formatters"
 	],
 	"activationEvents": [
 		"onCommand:appurist.json-flattener.clipboard",

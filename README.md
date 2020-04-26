@@ -1,3 +1,5 @@
+![Demo image](images/logo128.png)
+
 # **json-flattener - README**
 
 This package is an extension for Visual Studio Code (VS Code) that provides commands to flatten multi-level JSON definitions to single-level dot notation.
@@ -49,6 +51,10 @@ There are no configurable settings for this extension at this time.
 None.
 
 ## Release Notes
+
+### 1.0.1
+
+Fixed the publishing category to be "Formatters", and added the logo.
 
 ### 1.0.0
 
