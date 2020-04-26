@@ -50,12 +50,17 @@ None.
 
 ## Release Notes
 
+### 1.0.2
+
+- Moved the logo to the end to avoid double logo at start in marketplace.
+- Updated the readme to show this.
+
 ### 1.0.1
 
-Fixed the publishing category to be "Formatters", and added the logo.
+- Fixed the publishing category to be "Formatters", and added the logo.
 
 ### 1.0.0
 
-Initial release of this JSON Flattener.
+- Initial release of this JSON Flattener.
 
 ![Demo image](images/logo.png)
