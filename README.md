@@ -50,6 +50,10 @@ None.
 
 ## Release Notes
 
+### 1.0.3
+
+- Automated low-priority security update to bump lodash from 4.17.15 to 4.17.19.
+
 ### 1.0.2
 
 - Moved the logo to the end to avoid double logo at start in marketplace.
