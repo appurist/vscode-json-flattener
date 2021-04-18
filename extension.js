@@ -76,6 +76,37 @@ function objToFlatArray(obj, acc, prefix) {
 		acc.push(`  "${prefix}": ${obj}`)
 	}
 }
+
+
+//////////////////////
+// *** REWRITE TO OUTPUT JSON RATHER THAN NESTED OBJECT ****
+
+// level is 1-based, 1..length
+function unflatSubObj(obj, acc, tok, level) {
+	let n = level-1;
+
+	if (level < tok.length) {
+		// not a leaf member
+		if (!acc.hasOwnProperty(tok[n]))
+			acc[tok[n]] = { }
+		unflatSubObj(obj, acc, tok, level+1);
+	} else {
+		// a leaf member
+		let parent = acc[tok[0]];
+		let px = 1;
+		while (px < n)
+			parent = parent[tok[px++]];
+		let id = tok.join('.')
+		parent[tok[n]] = obj[id];
+	}
+}
+
+function objToUnflatObj(obj, acc) {
+	for (let k in obj) {
+		let tok = k.split('.');
+		unflatSubObj(obj, acc, tok, 1);	// 1-based, 1..length
+	}
+}
 /**************************************************/
 
 // Command 1: appurist.json-flattener.selection
@@ -90,6 +121,22 @@ function selectionFlatten () {
 	objToFlatArray(obj, flatArray);
 	let flatJSON = '{\n' + flatArray.join(',\n') + '\n}';
 	return replaceSelection(editor, flatJSON);
+}
+
+// Command 2: appurist.json-flattener.selection-unflatten
+function selectionUnflatten () {
+	let editor = vscode.window.activeTextEditor;
+	if (!editor) return; // No text editor open
+
+	let obj = objectFromSelection(editor);
+	if (!obj) return;	// already reported
+
+	// First flatten it to make sure it's flat.
+	let unflatObj = { };
+	objToUnflatObj(obj, unflatObj);
+
+	let unflatJSON = JSON.stringify(unflatObj, undefined, 2);
+	return replaceSelection(editor, unflatJSON);
 }
 
 // Command 2: appurist.json-flattener.pretty
@@ -107,6 +154,38 @@ function selectionPretty (makePretty) {
 
 // Command 4: appurist.json-flattener.clipboard
 async function clipboardFlatten () {
+	let json;
+	let lines = await vscode.env.clipboard.readText();
+	if (lines) {
+		if (Array.isArray(json)) {
+			json = lines.join(' ');
+		} else
+		if (typeof lines == 'string')
+		{
+			json = lines.trim();
+		} else {
+			error('JSON Flattener: Unrecognized clipboard type: '+typeof lines)
+			return;
+		}
+	}
+
+	let obj;
+	try {
+		obj = JSON.parse(json);
+	}
+	catch(err) {
+		warning('JSON Flattener: Clipboard is not valid JSON: ', err.message);
+		return;
+	}
+
+	let json2 = JSON.stringify(obj);
+	let success = await vscode.env.clipboard.writeText(json2);
+	if (!success)
+		error('JSON Flattener: Could not replace clipboard.');
+}
+
+// Command 4: appurist.json-flattener.clipboard-unflatten
+async function clipboardUnflatten () {
 	let json;
 	let lines = await vscode.env.clipboard.readText();
 	if (lines) {
@@ -156,19 +235,29 @@ function activate(context) {
 		selectionFlatten();
 	});
 
-	// Command 2: appurist.json-flattener.pretty
+	// Command 2: appurist.json-flattener.selection-unflatten
+	disposable = vscode.commands.registerCommand('appurist.json-flattener.selection-unflatten', () => {
+		selectionUnflatten();
+	});
+
+	// Command 3: appurist.json-flattener.clipboard
+	disposable = vscode.commands.registerCommand('appurist.json-flattener.clipboard', async  () => {
+		await clipboardFlatten();
+	});
+
+	// Command 4: appurist.json-flattener.clipboard-unflatten
+	disposable = vscode.commands.registerCommand('appurist.json-flattener.clipboard-unflatten', async  () => {
+		await clipboardUnflatten();
+	});
+
+	// Command 5: appurist.json-flattener.pretty
 	disposable = vscode.commands.registerCommand('appurist.json-flattener.pretty', () => {
 		selectionPretty(true);
 	});
 
-	// Command 3: appurist.json-flattener.unpretty
+	// Command 6: appurist.json-flattener.unpretty
 	disposable = vscode.commands.registerCommand('appurist.json-flattener.unpretty', () => {
 		selectionPretty(false);
-	});
-
-	// Command 4: appurist.json-flattener.clipboard
-	disposable = vscode.commands.registerCommand('appurist.json-flattener.clipboard', async  () => {
-		await clipboardFlatten();
 	});
 
 	context.subscriptions.push(disposable);
