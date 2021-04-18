@@ -50,6 +50,10 @@ None.
 
 ## Release Notes
 
+### 1.0.5
+
+- Removed the experimental unflatten commands that weren't complete, working or ready yet.
+
 ### 1.0.4
 
 - Fixed problems flattening strings with embedded " characters and escaped characters like "\n".

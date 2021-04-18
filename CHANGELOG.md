@@ -5,6 +5,10 @@ All notable changes to this "json-flattener" extension will be documented in thi
 
 ## Release Notes
 
+### 1.0.5 [2021-04-18]
+
+- Removed the experimental unflatten commands that weren't complete, working or ready yet.
+
 ### 1.0.4 [2021-04-18]
 
 - Fixed problems flattening strings with embedded " characters and escaped characters like "\n".
