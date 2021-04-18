@@ -67,7 +67,7 @@ function objToFlatArray(obj, acc, prefix) {
 		}
 	}
 	else if (t == 'string') {
-		acc.push(`  "${prefix}": "${obj}"`)
+		acc.push(`  "${prefix}": ${JSON.stringify(obj)}`)
 	}
 	else if (t == 'boolean') {
 		acc.push(`  "${prefix}": ${obj}`)

@@ -1,6 +1,6 @@
 {
-	"name": "test-data",
-	"displayName": "Test Data",
+	"name": "t\"est-data",
+	"displayName": "Test\nData",
 	"emptyArray": [ ],
 	"emptyObject": { },
 	"level1a": {
