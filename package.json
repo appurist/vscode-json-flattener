@@ -56,7 +56,9 @@
 	"scripts": {
 		"lint": "eslint .",
 		"pretest": "yarn run lint",
-		"test": "node ./test/runTest.js"
+		"test": "node ./test/runTest.js",
+		"build": "vsce package",
+		"release": "vsce publish"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
