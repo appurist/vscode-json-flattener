@@ -1,7 +1,7 @@
 {
 	"name": "json-flattener",
 	"displayName": "JSON Flattener",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"icon": "images/logo128.png",
 	"description": "Flattens multi-level JSON to single-level dot notation.",
 	"publisher": "Appurist",
@@ -18,9 +18,7 @@
 	],
 	"activationEvents": [
 		"onCommand:appurist.json-flattener.selection",
-		"onCommand:appurist.json-flattener.selection-unflatten",
 		"onCommand:appurist.json-flattener.clipboard",
-		"onCommand:appurist.json-flattener.clipboard-unflatten",
 		"appurist.json-flattener.pretty",
 		"appurist.json-flattener.unpretty"
 	],
@@ -32,16 +30,8 @@
 				"title": "JSON Flattener: Flatten (Clipboard)"
 			},
 			{
-				"command": "appurist.json-flattener.clipboard-unflatten",
-				"title": "JSON Flattener: Unflatten (Clipboard)"
-			},
-			{
 				"command": "appurist.json-flattener.selection",
 				"title": "JSON Flattener: Flatten (Selection)"
-			},
-			{
-				"command": "appurist.json-flattener.selection-unflatten",
-				"title": "JSON Flattener: Unflatten (Selection)"
 			},
 			{
 				"command": "appurist.json-flattener.pretty",
