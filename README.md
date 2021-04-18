@@ -50,6 +50,11 @@ None.
 
 ## Release Notes
 
+### 1.0.4
+
+- Fixed problems flattening strings with embedded " characters and escaped characters like "\n".
+- Fixes Issue #2 https://github.com/appurist/vscode-json-flattener/issues/2 
+
 ### 1.0.3
 
 - Automated low-priority security update to bump lodash from 4.17.15 to 4.17.19.
