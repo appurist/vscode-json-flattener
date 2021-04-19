@@ -1,6 +1,6 @@
 # **json-flattener - README**
 
-This package is an extension for Visual Studio Code (VS Code) that provides commands to flatten multi-level JSON definitions to single-level dot notation.
+This package is [an extension for Visual Studio Code (VS Code)](https://marketplace.visualstudio.com/items?itemName=Appurist.json-flattener) that provides commands to flatten multi-level JSON definitions to single-level dot notation.
 
 ## Features
 
