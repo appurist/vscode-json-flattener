@@ -30,7 +30,7 @@ function replaceSelection(editor, text) {
 		if (success) {
 			// Change the selection: start and end position of the new
 			// selection is same, so it is not to select replaced text;
-			var position = editor.selection.end; 
+			var position = editor.selection.end;
 			// editor.selection = new vscode.Selection(position, position);	// deselect
 			editor.revealRange(new vscode.Range(position, position));	// show cursor at end of old selection
 			info('JSON Flattener: selection contents flattened: '+success);
@@ -47,8 +47,8 @@ function isEmptyObject(obj) {
 
 // Accumulates a deeply-nested object as items into array 'acc', recursively. Lines are later inserted.
 // An array is used to avoid excessive reconcatenation with a bunch of temp objects as one long string.
-function objToFlatArray(obj, acc, prefix) {
-	let prefixDot = prefix ? prefix + '.' : '';
+function objToFlatArray(obj, acc, separator, prefix) {
+	let prefixDot = prefix ? prefix + separator : '';
 	let t = typeof obj;
 	let isArray = Array.isArray(obj);
 
@@ -62,7 +62,7 @@ function objToFlatArray(obj, acc, prefix) {
 	else if ((t === 'object') || isArray) {
 		for (const k in obj) {
 			if (obj.hasOwnProperty(k)) {
-				objToFlatArray(obj[k], acc, `${prefixDot}${k}`);
+				objToFlatArray(obj[k], acc, separator, `${prefixDot}${k}`);
 			}
 		}
 	}
@@ -79,7 +79,8 @@ function objToFlatArray(obj, acc, prefix) {
 /**************************************************/
 
 // Command 1: appurist.json-flattener.selection
-function selectionFlatten () {
+// Command 5: appurist.json-flattener.selection-dotnet
+function selectionFlatten (dotnet) {
 	let editor = vscode.window.activeTextEditor;
 	if (!editor) return; // No text editor open
 
@@ -87,7 +88,7 @@ function selectionFlatten () {
 	if (!obj) return;	// already reported
 
 	let flatArray = [];
-	objToFlatArray(obj, flatArray);
+	objToFlatArray(obj, flatArray, dotnet ? '__' : '.');
 	let flatJSON = '{\n' + flatArray.join(',\n') + '\n}';
 	return replaceSelection(editor, flatJSON);
 }
@@ -169,6 +170,11 @@ function activate(context) {
 	// Command 4: appurist.json-flattener.clipboard
 	disposable = vscode.commands.registerCommand('appurist.json-flattener.clipboard', async  () => {
 		await clipboardFlatten();
+	});
+
+	// Command 5: appurist.json-flattener.selection-dotnet
+	disposable = vscode.commands.registerCommand('appurist.json-flattener.selection-dotnet', () => {
+		selectionFlatten(true); // use dotnet separator
 	});
 
 	context.subscriptions.push(disposable);

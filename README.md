@@ -19,7 +19,7 @@ There are four commands provided by this extension:
 
 ## Flatten (Selection) `appurist.json-flattener.selection`
 
-This is the primary function of this extension. It converts a multi-level JSON, *marked by the current editor text selection*, into  single-level dot-notation JSON block. Once converted, it *replaces* the current selection with the new JSON flattened object. See images below.
+This is the primary function of this extension. It converts a multi-level JSON, *marked by the current editor text selection*, into single-level dot-notation JSON block. Once converted, it *replaces* the current selection with the new JSON flattened object. See images below.
 
 ## Flatten (Clipboard) `appurist.json-flattener.clipboard`
 
@@ -32,6 +32,10 @@ This is a convenience function, provided because it was almost free to do so. It
 ## Flatten (Selection) `appurist.json-flattener.unpretty`
 
 This is a convenience function, provided because it was almost free to do so. It simply applies a minimal JSON "unpretty" stringify reformatting of the current selection without much whitespace.
+
+## Flatten (Selection - dotnet__separator) `appurist.json-flattener.selection-dotnet`
+
+Like `appurist.json-flattener.selection`, this command converts a multi-level JSON, *marked by the current editor text selection*, into single-level JSON block, but uses `__` as the separator rather than the usual `'.'`. Once converted, it *replaces* the current selection with the new JSON flattened object. This is useful for flattening dotnet's appsettings.json.
 
 # Visual Demo
 Before flattening:
@@ -50,6 +54,12 @@ None.
 
 ## Release Notes
 
+### 1.0.6
+
+- Updated all dependencies.
+- Added the "Flatten (Selection - dotnet__separator)" `appurist.json-flattener.selection-dotnet` command.
+- Fixed problems activating the pretty and unpretty selection commands.
+
 ### 1.0.5
 
 - Removed the experimental unflatten commands that weren't complete, working or ready yet.
@@ -57,7 +67,7 @@ None.
 ### 1.0.4
 
 - Fixed problems flattening strings with embedded " characters and escaped characters like "\n".
-- Fixes Issue #2 https://github.com/appurist/vscode-json-flattener/issues/2 
+- Fixes Issue #2 https://github.com/appurist/vscode-json-flattener/issues/2
 
 ### 1.0.3
 
