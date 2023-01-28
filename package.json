@@ -1,11 +1,17 @@
 {
 	"name": "json-flattener",
 	"displayName": "JSON Flattener",
-	"version": "1.0.6",
+	"version": "1.1.0",
 	"icon": "images/logo128.png",
 	"description": "Flattens multi-level JSON to single-level dot notation.",
 	"publisher": "Appurist",
 	"author": "Paul Whittemore <dev@appurist.com>",
+	{
+	"contributors": [
+		"Paul Whittemore <dev@appurist.com>",
+		"tomByrer"
+		]
+	},
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/appurist/vscode-json-flattener.git"
@@ -21,7 +27,8 @@
 		"onCommand:appurist.json-flattener.clipboard",
 		"onCommand:appurist.json-flattener.pretty",
 		"onCommand:appurist.json-flattener.unpretty",
-		"onCommand:appurist.json-flattener.selection-dotnet"
+		"onCommand:appurist.json-flattener.selection-dotnet",
+		"onCommand:appurist.json-flattener.selection-javascript"
 	],
 	"main": "./extension.js",
 	"contributes": {
@@ -45,6 +52,10 @@
 			{
 				"command": "appurist.json-flattener.selection-dotnet",
 				"title": "JSON Flattener: Flatten (Selection - dotnet__separator)"
+			},
+			{
+				"command": "appurist.json-flattener.selection-javascript",
+				"title": "JSON Flattener: Flatten (Selection - JavaScript[arrays])"
 			}
 		]
 	},
