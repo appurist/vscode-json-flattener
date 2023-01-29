@@ -51,6 +51,7 @@ function objToFlatArray(obj, acc, separators, prefix) {
 	let t = (Array.isArray(obj)) ? 'array' : typeof obj;
 
 	if (t === 'array') {
+		// Special cases first for empty enumerables
 		if (obj.length === 0) {
 			acc.push(`  "${prefix}": []`)
 		}
@@ -61,8 +62,8 @@ function objToFlatArray(obj, acc, separators, prefix) {
 						obj[k],
 						acc,
 						separators,
-						prefix + separators.arrL + k + separators.arrR
-					);
+						`${prefix ? prefix + separators.arrL : ''}${k}${prefix ? separators.arrR : ''}`
+					)
 				}
 			}
 		}
@@ -78,8 +79,8 @@ function objToFlatArray(obj, acc, separators, prefix) {
 						obj[k],
 						acc,
 						separators,
-						prefix + separators.obj + k
-					);
+						`${prefix ? prefix + separators.obj : ''}${k}`
+					)
 				}
 			}
 		}
