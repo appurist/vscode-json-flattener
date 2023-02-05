@@ -5,6 +5,17 @@ All notable changes to this "json-flattener" extension will be documented in thi
 
 ## Release Notes
 
+### 1.1.0 [2023]
+
+- Added JavaScript compatable flatten, eg `array[8].item`
+- internal API changes
+
+### 1.0.6 [2022]
+
+- Updated all dependencies.
+- Added the "Flatten (Selection - dotnet__separator)" `appurist.json-flattener.selection-dotnet` command.
+- Fixed problems activating the pretty and unpretty selection commands.
+
 ### 1.0.5 [2021-04-18]
 
 - Removed the experimental unflatten commands that weren't complete, working or ready yet.

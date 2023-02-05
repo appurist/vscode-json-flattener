@@ -47,22 +47,41 @@ function isEmptyObject(obj) {
 
 // Accumulates a deeply-nested object as items into array 'acc', recursively. Lines are later inserted.
 // An array is used to avoid excessive reconcatenation with a bunch of temp objects as one long string.
-function objToFlatArray(obj, acc, separator, prefix) {
-	let prefixDot = prefix ? prefix + separator : '';
-	let t = typeof obj;
-	let isArray = Array.isArray(obj);
+function objToFlatArray(obj, acc, separators, prefix) {
+	let t = (Array.isArray(obj)) ? 'array' : typeof obj;
 
-	// Special cases first for empty enumerables
-	if (isArray && (obj.length === 0)) {
-		acc.push(`  "${prefix}": []`)
+	if (t === 'array') {
+		// Special cases first for empty enumerables
+		if (obj.length === 0) {
+			acc.push(`  "${prefix}": []`)
+		}
+		else {
+			for (const k in obj) {
+				if (obj.hasOwnProperty(k)) {
+					objToFlatArray(
+						obj[k],
+						acc,
+						separators,
+						`${prefix ? prefix + separators.arrL : ''}${k}${prefix ? separators.arrR : ''}`
+					)
+				}
+			}
+		}
 	}
-	else if (t === 'object' && isEmptyObject(obj)) {
-		acc.push(`  "${prefix}": {}`)
-	}
-	else if ((t === 'object') || isArray) {
-		for (const k in obj) {
-			if (obj.hasOwnProperty(k)) {
-				objToFlatArray(obj[k], acc, separator, `${prefixDot}${k}`);
+	else if (t === 'object') {
+		if (isEmptyObject(obj)) {
+			acc.push(`  "${prefix}": {}`)
+		}
+		else {
+			for (const k in obj) {
+				if (obj.hasOwnProperty(k)) {
+					objToFlatArray(
+						obj[k],
+						acc,
+						separators,
+						`${prefix ? prefix + separators.obj : ''}${k}`
+					)
+				}
 			}
 		}
 	}
@@ -78,9 +97,7 @@ function objToFlatArray(obj, acc, separator, prefix) {
 }
 /**************************************************/
 
-// Command 1: appurist.json-flattener.selection
-// Command 5: appurist.json-flattener.selection-dotnet
-function selectionFlatten (dotnet) {
+function selectionFlatten (style) {
 	let editor = vscode.window.activeTextEditor;
 	if (!editor) return; // No text editor open
 
@@ -88,7 +105,27 @@ function selectionFlatten (dotnet) {
 	if (!obj) return;	// already reported
 
 	let flatArray = [];
-	objToFlatArray(obj, flatArray, dotnet ? '__' : '.');
+	let separators = {  // styles
+		// appurist.json-flattener.selection
+		'.': {
+			'obj': '.',
+			'arrL': '.',
+			'arrR': '',
+		},
+		// appurist.json-flattener.selection-dotnet
+		'__': {
+			'obj': '__',
+			'arrL': '__',
+			'arrR': '',
+		},
+		// appurist.json-flattener.selection-javascript
+		'js': {
+			'obj': '.',
+			'arrL': '[',
+			'arrR': ']',
+		},
+	}
+	objToFlatArray(obj, flatArray, separators[style]);
 	let flatJSON = '{\n' + flatArray.join(',\n') + '\n}';
 	return replaceSelection(editor, flatJSON);
 }
@@ -154,7 +191,7 @@ function activate(context) {
 
 	// Command 1: appurist.json-flattener.selection
 	disposable = vscode.commands.registerCommand('appurist.json-flattener.selection', () => {
-		selectionFlatten();
+		selectionFlatten('.');
 	});
 
 	// Command 2: appurist.json-flattener.pretty
@@ -174,7 +211,12 @@ function activate(context) {
 
 	// Command 5: appurist.json-flattener.selection-dotnet
 	disposable = vscode.commands.registerCommand('appurist.json-flattener.selection-dotnet', () => {
-		selectionFlatten(true); // use dotnet separator
+		selectionFlatten('__'); // use dotnet separator
+	});
+
+	// Command 6: appurist.json-flattener.selection-javascript
+	disposable = vscode.commands.registerCommand('appurist.json-flattener.selection-javascript', () => {
+		selectionFlatten('js'); // use JavaScript array separators
 	});
 
 	context.subscriptions.push(disposable);
