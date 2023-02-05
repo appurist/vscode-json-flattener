@@ -1,79 +1,79 @@
 {
-	"name": "json-flattener",
-	"displayName": "JSON Flattener",
-	"version": "1.1.0",
-	"icon": "images/logo128.png",
-	"description": "Flattens multi-level JSON to single-level dot notation.",
-	"publisher": "Appurist",
-	"author": "Paul Whittemore <dev@appurist.com>",
-	"contributors": [
-		"Paul Whittemore <dev@appurist.com>",
-		"tomByrer"
+  "name": "json-flattener",
+  "displayName": "JSON Flattener",
+  "version": "1.1.0",
+  "icon": "images/logo128.png",
+  "description": "Flattens multi-level JSON to single-level dot notation.",
+  "publisher": "Appurist",
+  "author": "Paul Whittemore <dev@appurist.com>",
+  "contributors": [
+    "Paul Whittemore <dev@appurist.com>",
+    "tomByrer"
   ],
-	"repository": {
-		"type": "git",
-		"url": "git://github.com/appurist/vscode-json-flattener.git"
-	},
-	"engines": {
-		"vscode": "^1.44.0"
-	},
-	"categories": [
-		"Formatters"
-	],
-	"activationEvents": [
-		"onCommand:appurist.json-flattener.selection",
-		"onCommand:appurist.json-flattener.clipboard",
-		"onCommand:appurist.json-flattener.pretty",
-		"onCommand:appurist.json-flattener.unpretty",
-		"onCommand:appurist.json-flattener.selection-dotnet",
-		"onCommand:appurist.json-flattener.selection-javascript"
-	],
-	"main": "./extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "appurist.json-flattener.clipboard",
-				"title": "JSON Flattener: Flatten (Clipboard)"
-			},
-			{
-				"command": "appurist.json-flattener.selection",
-				"title": "JSON Flattener: Flatten (Selection)"
-			},
-			{
-				"command": "appurist.json-flattener.pretty",
-				"title": "JSON Flattener: Pretty (Selection)"
-			},
-			{
-				"command": "appurist.json-flattener.unpretty",
-				"title": "JSON Flattener: Unpretty (Selection)"
-			},
-			{
-				"command": "appurist.json-flattener.selection-dotnet",
-				"title": "JSON Flattener: Flatten (Selection - dotnet__separator)"
-			},
-			{
-				"command": "appurist.json-flattener.selection-javascript",
-				"title": "JSON Flattener: Flatten (Selection - JavaScript[arrays])"
-			}
-		]
-	},
-	"scripts": {
-		"lint": "eslint .",
-		"pretest": "yarn run lint",
-		"test": "node ./test/runTest.js",
-		"build": "vsce package",
-		"release": "vsce publish"
-	},
-	"devDependencies": {
-		"@types/glob": "^7.1.1",
-		"@types/mocha": "^7.0.2",
-		"@types/node": "^13.11.0",
-		"@types/vscode": "^1.44.0",
-		"eslint": "^6.8.0",
-		"glob": "^7.1.6",
-		"mocha": "^7.1.1",
-		"typescript": "^3.8.3",
-		"vsce": "^2.9.2",
-		"vscode-test": "^1.3.0"
-	}
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/appurist/vscode-json-flattener.git"
+  },
+  "engines": {
+    "vscode": "^1.44.0"
+  },
+  "categories": [
+    "Formatters"
+  ],
+  "activationEvents": [
+    "onCommand:appurist.json-flattener.selection",
+    "onCommand:appurist.json-flattener.clipboard",
+    "onCommand:appurist.json-flattener.pretty",
+    "onCommand:appurist.json-flattener.unpretty",
+    "onCommand:appurist.json-flattener.selection-dotnet",
+    "onCommand:appurist.json-flattener.selection-javascript"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "appurist.json-flattener.clipboard",
+        "title": "JSON Flattener: Flatten (Clipboard)"
+      },
+      {
+        "command": "appurist.json-flattener.selection",
+        "title": "JSON Flattener: Flatten (Selection)"
+      },
+      {
+        "command": "appurist.json-flattener.pretty",
+        "title": "JSON Flattener: Pretty (Selection)"
+      },
+      {
+        "command": "appurist.json-flattener.unpretty",
+        "title": "JSON Flattener: Unpretty (Selection)"
+      },
+      {
+        "command": "appurist.json-flattener.selection-dotnet",
+        "title": "JSON Flattener: Flatten (Selection - dotnet__separator)"
+      },
+      {
+        "command": "appurist.json-flattener.selection-javascript",
+        "title": "JSON Flattener: Flatten (Selection - JavaScript[arrays])"
+      }
+    ]
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "yarn run lint",
+    "test": "node ./test/runTest.js",
+    "build": "vsce package",
+    "release": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.11.0",
+    "@types/vscode": "^1.44.0",
+    "eslint": "^6.8.0",
+    "glob": "^7.1.6",
+    "mocha": "^7.1.1",
+    "typescript": "^3.8.3",
+    "vsce": "^2.9.2",
+    "vscode-test": "^1.3.0"
+  }
 }
