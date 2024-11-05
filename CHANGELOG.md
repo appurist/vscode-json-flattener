@@ -5,6 +5,13 @@ All notable changes to this "json-flattener" extension will be documented in thi
 
 ## Release Notes
 
+### 1.1.2 [2024]
+
+- Upgraded VS Code Engine to 1.95.0
+- Upgraded vsce command to 3.2.1
+- Upgraded all other dependencies to latest available.
+- Switched from Yarn to NPM due to some build issues.
+
 ### 1.1.0 [2023]
 
 - Added JavaScript compatable flatten, eg `array[8].item`
