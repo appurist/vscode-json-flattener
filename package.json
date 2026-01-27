@@ -2,7 +2,7 @@
   "name": "json-flattener",
   "displayName": "JSON Flattener",
   "description": "Flattens multi-level JSON to single-level dot notation.",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "icon": "images/logo128.png",
   "main": "./extension.js",
   "publisher": "Appurist",
@@ -16,8 +16,6 @@
     "url": "git://github.com/appurist/vscode-json-flattener.git"
   },
   "scripts": {
-    "lint": "eslint .",
-    "pretest": "npm run lint",
     "test": "node ./test/runTest.js",
     "build": "vsce package",
     "release": "vsce publish"
@@ -54,16 +52,10 @@
     ]
   },
   "devDependencies": {
-    "@types/glob": "^7.2.0",
-    "@types/mocha": "^7.0.2",
-    "@types/node": "^13.13.52",
-    "@types/vscode": "^1.95.0",
-    "@vscode/vsce": "^3.2.1",
-    "eslint": "^6.8.0",
-    "glob": "^7.2.3",
-    "mocha": "^11.7.1",
-    "typescript": "^3.9.10",
-    "vscode-test": "^1.6.1"
+    "@vscode/vsce": "^3.7.1",
+    "@vscode/test-electron": "^2.5.2",
+    "glob": "^11.0.0",
+    "mocha": "^11.7.5"
   },
   "engines": {
     "vscode": "^1.95.0"
